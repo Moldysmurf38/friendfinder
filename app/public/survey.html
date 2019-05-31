@@ -22,6 +22,12 @@
         <header>
             <h2>Survey Questions:</h2>
         </header>
+        <div id="modal-content" style="display:none; background:black; position: fixed; z-index:99% !important; height:250px; width:400px; top:20%; left:30%; border-radius:2px; padding: 5px">
+            <h2 id="results-title" style="text-align: center; color: white; margin-top: 5%; margin-bottom: 5%">Your New Friend:</h2>
+            <h5 id="friendName" style="text-align:center;margin-left:5%; color:white; margin-bottom: 5%"></h5>
+            <div id="friendPhoto"style="text-align:center; color:white; word-wrap: break-word"></div>
+            <button class="restartBtn" style="margin-left: 45%; margin-top: 5%"" onClick="window.location.reload()">Close</button>
+        </div>
         <br>
         <h4>About You:</h4>
         <br>
@@ -165,7 +171,8 @@
                 </select>
             </div>
             <br>
-            <button type="submit" class="btn btn-outline-secondary btn-block" id="submit-btn">Submit</button>
+            <button type="submit" class="btn btn-outline-secondary btn-block" id="submit-btn"
+                onclick="document.getElementById('modal').style.display = 'block'">Submit</button>
         </form>
         <br>
         <footer>
@@ -178,6 +185,8 @@
     </div>
 </body>
 <script type="text/javascript">
+    $("#friendName").html("")
+    $("#friendPhoto").html("")
     $("#submit-btn").on("click", function (event) {
         event.preventDefault();
         var answers = [];
@@ -188,10 +197,22 @@
             responses: answers
         }
         $.post("/api/friends", newFriend)
-        .then(function(data) {
-            console.log(data)
-        })
+            .then(function (data) {
+                $("#friendName").html(data.name)
+                $("#friendPhoto").html(data.photo)
+                finalPage()
+            })
     });
+    
+    function displayResults() {
+        $("#modal-content").show();
+    }
+
+    function finalPage() {
+        document.getElementById("modal-content").style.visibility = 'visible'
+        displayResults()
+    }
+
 </script>
 <script type="text/javascript" src="server.js"></script>
 

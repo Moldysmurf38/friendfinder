@@ -22,21 +22,19 @@ module.exports = function (app) {
         }
         var newFriend = req.body
         var friendResponse= req.body.responses;
+        friendsList.push(newFriend)
         var compVar;
         for (var i = 0; i<friendsList.length; i++) {
             var listA = friendsList[i].responses;
             var listB = friendResponse;
             compVar = 0;
             var compResult = Math.abs(parseInt(listB)-parseInt(listA[i]));
-            console.log(compResult);
         }
-        // compVar <= compResult 
-        // {
-        //     bestFriend.name: FriendList[i].name,
-        //     bestFriend.photo: FriendList[i].photo,
-        //     bestFriend.responses: FriendList[i].responses
-        // }
-        // friendsList.push(newFriend);
-        res.json(newFriend);
+        var compVariant = []
+        compVariant.push(compResult)
+        let y = compVariant.indexOf(Math.min(compVariant));
+        x = y
+        bestFriend = friendsList[x]
+        res.json(bestFriend)
     });
 };
