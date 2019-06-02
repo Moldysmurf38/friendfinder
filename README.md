@@ -10,11 +10,11 @@ Check out the dployed version here: https://friendfinder38.herokuapp.com/
 
 ### **Prerequisites:**
 
-
+None
 
 ### **Installing:**
 
-
+None required (See Heroku link in getting started to use the app)
 
 ### **Built With:**
 
