@@ -2,7 +2,7 @@ var express = require("express");
 var app = express();
 var path = require("path");
 
-var friendsList = require ("../data/friends");
+var friendsList = require("../data/friends");
 
 
 module.exports = function (app) {
@@ -21,20 +21,26 @@ module.exports = function (app) {
             responses: Infinity
         }
         var newFriend = req.body
-        var friendResponse= req.body.responses;
-        friendsList.push(newFriend)
-        var compVar;
-        for (var i = 0; i<friendsList.length; i++) {
+        var friendResponse = req.body.responses;
+        
+        var compVariant = []
+        var a = 0;
+        for (var i = 0; i < friendsList.length; i++) {
             var listA = friendsList[i].responses;
             var listB = friendResponse;
-            compVar = 0;
-            var compResult = Math.abs(parseInt(listB)-parseInt(listA[i]));
+            for (var j = 0; j <listB.length; j++){
+                 a += Math.abs(parseInt(listB[j]) - parseInt(listA[j]));
+            }
+            compVariant.push(a)
+            a = 0;
         }
-        var compVariant = []
-        compVariant.push(compResult)
-        let y = compVariant.indexOf(Math.min(compVariant));
-        x = y
-        bestFriend = friendsList[x]
+        console.log(compVariant)
+        
+        var z = Math.min(...compVariant)
+        let y = compVariant.indexOf(z);
+        console.log(y)
+        friendsList.push(newFriend)
+        bestFriend = friendsList[y]
         res.json(bestFriend)
     });
 };
