@@ -30,7 +30,7 @@
                     </div>
                     <div class="modal-body">
                         <p id="friendName"></p>
-                        <p id="friendPhoto"></p>
+                        <div id="friendPhoto"></div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"
@@ -184,7 +184,7 @@
         </div>
         <br>
         <button type="submit" class="btn btn-outline-secondary btn-block" id="submit-btn"
-            onclick="document.getElementById('modal').style.display = 'block'">Submit</button>
+            onclick="document.getElementById('modal-content').style.display = 'block'">Submit</button>
     </form>
     <br>
     <footer>
@@ -210,8 +210,8 @@
         }
         $.post("/api/friends", newFriend)
             .then(function (data) {
-                $("#friendName").html(data.name)
-                $("#friendPhoto").html(data.photo)
+                $("#friendName").html(data.name);
+                linkBuild(data)
                 finalPage()
             })
     });
@@ -224,11 +224,12 @@
         document.getElementById("modal-content").style.visibility = 'visible'
         displayResults()
     }
-    // function linkBuild(data) {
-    //     var str = "Their Picture!";
-    //     var result = str.link(data.name);
-    //     $("#friendPhoto").html(result)
-    // }
+    function linkBuild(data) {
+        var photoDiv = $("<img>");
+        photoDiv.attr("class", "photo-url");
+        photoDiv.attr("src", data.photo);
+        $("#friendPhoto").append(photoDiv);
+    }
 </script>
 <script type="text/javascript" src="server.js"></script>
 </html>
