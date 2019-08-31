@@ -57,7 +57,7 @@
         <p>You enjoy playing video games.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question1">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -70,7 +70,7 @@
         <p>You enjoy outdoor activities.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question2">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -83,7 +83,7 @@
         <p>You enjoy watching movies/TV.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question3">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -96,7 +96,7 @@
         <p>You enjoy playing board games.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question4">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -109,7 +109,7 @@
         <p>You enjoy playing sports.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question5">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -122,7 +122,7 @@
         <p>You are more active at night.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question6">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -135,7 +135,7 @@
         <p>You enjoy social situations/parties.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question7">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -148,7 +148,7 @@
         <p>You are a creative person.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question8">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -161,7 +161,7 @@
         <p>You like to travel.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question9">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -174,7 +174,7 @@
         <p>You are interested in trying new things.</p>
         <div class="col-auto my-1">
             <select class="custom-select mr-sm-2" id="question10">
-                <option selected>Choose...</option>
+                <option selected disabled>Choose...</option>
                 <option value="1">1 (Strongly Disagree)</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -183,8 +183,7 @@
             </select>
         </div>
         <br>
-        <button type="submit" class="btn btn-outline-secondary btn-block" id="submit-btn"
-            onclick="document.getElementById('modal-content').style.display = 'block'">Submit</button>
+        <button type="submit" class="btn btn-outline-secondary btn-block" id="submit-btn">Submit</button>
     </form>
     <br>
     <footer>
@@ -197,41 +196,52 @@
     </div>
 </body>
 <script type="text/javascript">
-    $("#friendName").html("")
-    $("#friendPhoto").html("")
+    $("#friendName").html("");
+    $("#friendPhoto").html("");
     $("#submit-btn").on("click", function (event) {
         event.preventDefault();
         var answers = [];
         answers.push($("#question1").val(), $("#question2").val(), $("#question3").val(), $("#question4").val(), $("#question5").val(), $("#question6").val(), $("#question7").val(), $("#question8").val(), $("#question9").val(), $("#question10").val())
-        var newFriend = {
+        var validation = answers.indexOf(null)
+        console.log(answers);
+        console.log(validation);
+        if (validation == "-1") {
+            $("#modal-content").css("display", "block")
+            var newFriend = {
             name: $("#username").val().trim(),
             photo: $("#userimage").val(),
             responses: answers
-        }
+        };
         $.post("/api/friends", newFriend)
             .then(function (data) {
                 $("#friendName").html(data.name);
-                linkBuild(data)
-                finalPage()
-            })
+                linkBuild(data);
+                finalPage();
+            });
+        } else {
+            return alert("Please answer every question")
+        }
     });
 
     function displayResults() {
         $("#modal-content").show();
-    }
+    };
 
     function finalPage() {
-        document.getElementById("modal-content").style.visibility = 'visible'
-        displayResults()
-    }
+        $("#modal-content").css("visibility", "visible")
+        displayResults();
+    };
+
     function linkBuild(data) {
         var photoDiv = $("<img>");
         photoDiv.attr("class", "image-div");
         photoDiv.attr("src", data.photo);
-        photoDiv.attr("height", "30%")
-        photoDiv.attr("width", "30%")
+        photoDiv.attr("height", "30%");
+        photoDiv.attr("width", "30%");
         $("#friendPhoto").append(photoDiv);
-    }
+    };
+
 </script>
 <script type="text/javascript" src="server.js"></script>
+
 </html>
