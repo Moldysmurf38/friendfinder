@@ -226,8 +226,10 @@
     }
     function linkBuild(data) {
         var photoDiv = $("<img>");
-        photoDiv.attr("class", "photo-url");
+        photoDiv.attr("class", "image-div");
         photoDiv.attr("src", data.photo);
+        photoDiv.attr("height", "30%")
+        photoDiv.attr("width", "30%")
         $("#friendPhoto").append(photoDiv);
     }
 </script>
