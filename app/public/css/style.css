@@ -1,4 +1,15 @@
+body {
+    background: rgb(126, 255, 100);
+}
+.container {
+    background: rgb(255, 255, 255);
+    min-height: 100vh;
+}
+
 h2 {
-    color: pink;
-    text-align: right;
+    color: rgb(43, 255, 0);
+}
+
+label {
+    border-bottom: 1px solid rgb(43, 255, 0);
 }
