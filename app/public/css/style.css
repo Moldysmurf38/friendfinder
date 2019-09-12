@@ -26,3 +26,15 @@ h6 {
     background: rgb(255, 255, 255);
     border: 1px solid rgb(43, 255, 0);
 }
+
+.button-green:hover {
+    color: rgb(255, 255, 255);
+    background: rgb(43, 255, 0);
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.modal-header {
+    color: rgb(255, 255, 255);
+    background: rgb(43, 255, 0);
+
+}
