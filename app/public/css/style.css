@@ -1,15 +1,28 @@
 body {
     background: rgb(126, 255, 100);
 }
+
 .container {
     background: rgb(255, 255, 255);
     min-height: 100vh;
 }
 
+.main-page {
+    margin-left: 5%;
+}
+
 h2 {
+    margin-top: 2%;
     color: rgb(43, 255, 0);
 }
 
-label {
+h6 {
+    display: inline;
     border-bottom: 1px solid rgb(43, 255, 0);
+}
+
+.button-green {
+    color: rgb(43, 255, 0);
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(43, 255, 0);
 }
